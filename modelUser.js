@@ -18,7 +18,7 @@ class User {
     }
 
     save(){
-        if(!this._id && !this.password) {
+        if(!(this._id && this.password)) {
             return new Promise((resolve, reject) => {
                 
                 var err = {
@@ -34,7 +34,7 @@ class User {
                 uuid: crypto.randomBytes(8).toString("hex"),
                 created_at: this.created_at,
             };
-
+            
             var user = nano.use(docDB.user);
 
             return user.insert(docUser);

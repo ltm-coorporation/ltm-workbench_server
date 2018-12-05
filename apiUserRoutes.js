@@ -30,7 +30,7 @@ function createUser(req, res){
         });
     }))
     .then(body=> responseBuilder.send(200, body, res))
-    .catch(err => errorHandler(err, res));
+    .catch(err => responseBuilder.send(err.statusCode, err, res));
 }
 
 function auth(req, res){
@@ -52,7 +52,7 @@ function auth(req, res){
         });
     }))
     .then(body=> responseBuilder.send(200, body, res))
-    .catch(err => errorHandler(err, res));
+    .catch(err => responseBuilder.send(err.statusCode, err, res));
 }
 
 function updateUser(req, res){}
@@ -64,7 +64,7 @@ module.exports = { createUser, auth, updateUser, deleteUser }
 
 function errorHandler(err, res){
     var message = {};
-    console.log(err);
+    
     switch(err.statusCode){
         
         case 409:
